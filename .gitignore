@@ -1,0 +1,25 @@
+# Node.js dependencies
+node_modules/
+
+# Python environment
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+.env.local
+
+# Build files
+build/
+dist/
+
+# Database
+*.sqlite
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Local LLM models (these can be large)
+models/
