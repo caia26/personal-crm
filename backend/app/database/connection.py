@@ -8,8 +8,7 @@ from sqlalchemy.orm import sessionmaker
 load_dotenv()
 
 # Get database URL from environment variable
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg2://crm_user:MtEverest15@localhost/personal_crm")
-print(f"Using DATABASE_URL: {DATABASE_URL}")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Create SQLAlchemy engine
 engine = create_engine(DATABASE_URL)
