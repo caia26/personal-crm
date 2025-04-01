@@ -6,6 +6,7 @@ from sqlalchemy import or_
 from app.database.connection import get_db
 from app.models.contact import Contact
 from app.schemas.contact import Contact as ContactSchema, ContactCreate, ContactUpdate
+from app.schemas.note import Note as NoteSchema
 
 router = APIRouter()
 
@@ -107,3 +108,22 @@ def delete_contact(contact_id: int, db: Session = Depends(get_db)):
     db.delete(contact)
     db.commit()
     return {"message": "Contact deleted successfully"}
+
+@router.get("/{contact_id}/notes", response_model=List[NoteSchema])
+def get_contact_notes(
+    contact_id: int, 
+    skip: int = 0, 
+    limit: int = 100, 
+    db: Session = Depends(get_db)
+):
+    """
+    Get all notes for a specific contact.
+    """
+    contact = db.query(Contact).filter(Contact.id == contact_id).first()
+    if contact is None:
+        raise HTTPException(status_code=404, detail="Contact not found")
+    
+    notes = contact.notes
+    # Apply pagination after getting all notes
+    # This is not the most efficient for very large datasets but works for this limited use case
+    return notes[skip:skip+limit]

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from app.api.endpoints import contact
+from app.api.endpoints import contact, note
 
 # Load environment variables
 load_dotenv()
@@ -10,6 +10,7 @@ app = FastAPI(title="Personal CRM API")
 
 # Include contact routes
 app.include_router(contact.router, prefix="/contacts", tags=["contacts"])
+app.include_router(note.router, prefix="/notes", tags=["notes"])
 
 @app.get("/")
 async def root():

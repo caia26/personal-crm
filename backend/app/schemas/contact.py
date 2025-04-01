@@ -30,6 +30,19 @@ class ContactInDBBase(ContactBase):
     class Config:
         orm_mode = True
 
+# Forward reference for Note schema
+from app.schemas.note import Note
+
+# Properties shared by models returned from API
+class ContactInDBBase(ContactBase):
+    id: int
+    last_contacted: Optional[datetime] = None
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        orm_mode = True
+
 # Properties to return to client
 class Contact(ContactInDBBase):
     class Config:
